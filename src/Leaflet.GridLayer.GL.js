@@ -42,7 +42,11 @@ L.TileLayer.GL = L.TileLayer.extend({
 		this._renderer = L.DomUtil.create('canvas');
 		this._renderer.width = this._renderer.height = this.options.tileSize;
 		
-		var gl = this._gl = this._renderer.getContext('webgl') || this._renderer.getContext("experimental-webgl");
+		var gl = this._gl = this._renderer.getContext('webgl', {
+			premultipliedAlpha: false
+		}) || this._renderer.getContext("experimental-webgl", {
+			premultipliedAlpha: false
+		});
 		gl.viewportWidth  = this.options.tileSize;
 		gl.viewportHeight = this.options.tileSize;
 		

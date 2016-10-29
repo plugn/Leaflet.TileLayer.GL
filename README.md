@@ -21,6 +21,13 @@ This demo loads no tiles and uses the map coordinates to draw a fractal set:
 [http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-mandelbrot.html](http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-mandelbrot.html)
 
 
+#### Flood & height
+
+This demo uses [MapBox's "Terrain-RGB" tiles](https://www.mapbox.com/blog/terrain-rgb/) to play with the elevation: areas are coloured depending to the elevation (below 0 meters, between 0 and 5 meters, between 5 and 10 meters, above 10 meters).
+
+[http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-flood.html](http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-flood.html)
+
+
 ## Why?
 
 Leaflet has been lagging behind when it comes to WebGL technology. Other map libraries (such as [OpenLayers 3]() and most notably [Tangram](https://mapzen.com/products/tangram/)) can already use WebGL shaders to apply transformations to map tiles and do fancy stuff.

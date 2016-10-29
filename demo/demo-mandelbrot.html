@@ -2,7 +2,7 @@
 <html lang='en'>
 <meta charset="utf-8">
 <head>
-	<title>Leaflet MandelbrotGL demo</title>
+	<title>Leaflet TileLayer.GL Mandelbrot demo</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
@@ -20,6 +20,8 @@
 	<div>X:<span id="x"></div>
 	<div>Y:<span id="y"></div>
 	<div>Zoom: <span id="zoom"></div>
+	
+	<p>In this demo, a WebGL shader uses the map coordinates as the only input to display the mandelbrot set.</p>
 	
 	<script type="text/javascript">
 
@@ -80,20 +82,6 @@ void main(void) {
 `;
 
 
-// var stupidVertexShader = `
-// attribute vec2 aTextureCoords;
-// void main(void) {
-// 	gl_Position = vec4((aTextureCoords - 0.5) * 2.0 , 1.0, 1.0);
-// }
-// `
-// 
-// var stupidFragmentShader = `
-// void main(void) {
-// 	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
-// }
-// `
-
-
 		var tileSize = 256;
 
 		var map = L.map('map',{
@@ -103,8 +91,6 @@ void main(void) {
 		}).setView([0, -0.5], 5);
 
 		var fractal = L.tileLayer.gl({
-// 			vertexShader: stupidVertexShader,
-// 			fragmentShader: stupidFragmentShader,
 			vertexShader: vertexShader,
 			fragmentShader: fragmentShader,
 			// tileUrls: []
