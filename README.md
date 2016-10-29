@@ -12,13 +12,13 @@ tile layers based only on the map coordinates.
 
 This demo loads the ["toner" map style by Stamen](http://maps.stamen.com/toner/) and changes the colours on-the-fly:
 
-[http://ivansanchez.gitlab.io/Leaflet.GridLayer.GL/demo/demo-antitoner.html](http://ivansanchez.gitlab.io/Leaflet.GridLayer.GL/demo/demo-antitoner.html)
+[http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-antitoner.html](http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-antitoner.html)
 
 #### Mandelbrot set
 
 This demo loads no tiles and uses the map coordinates to draw a fractal set:
 
-[http://ivansanchez.gitlab.io/Leaflet.GridLayer.GL/demo/demo-mandelbrot.html](http://ivansanchez.gitlab.io/Leaflet.GridLayer.GL/demo/demo-mandelbrot.html)
+[http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-mandelbrot.html](http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-mandelbrot.html)
 
 
 ## Why?
@@ -40,7 +40,7 @@ Include Leaflet and Leaflet.TileLayer.GL in your HTML:
 ```
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
-<script src='https://unpkg.com/leaflet.gridlayer.gl@latest/src/Leaflet.GridLayer.GL'></script>
+<script src='https://unpkg.com/leaflet.TileLayer.gl@latest/src/Leaflet.TileLayer.GL'></script>
 ```
 
 Alternatively, fetch a local copy of Leaflet and Leaflet.TileLayer.GL with `npm install --save leaflet; npm install --save leaflet.tilelayer.gl` or `yarn add leaflet; yarn add leaflet.tilelayer.gl`
@@ -48,16 +48,7 @@ Alternatively, fetch a local copy of Leaflet and Leaflet.TileLayer.GL with `npm 
 You can create instances of `L.TileLayer.GL` in your code. These take three new options: `vertexShader`, `fragmentShader` and `tileUrls`, e.g.:
 
 ```
-var roads = L.gridLayer.googleMutant({
-	type: 'roadmap'	// valid values are 'roadmap', 'satellite', 'terrain' and 'hybrid'
-}).addTo(map);
-```
-
-It's also possible to use [custom styling](https://developers.google.com/maps/documentation/javascript/styling)
-by passing a value to the `style` option, e.g.:
-
-```
-	var antitoner = new L.TileLayer.GL({
+	var antitoner = L.tileLayer.gl({
 		vertexShader: "// String with GLSL vertex shader code",
 		fragmentShader: "// String with GLSL fragment shader code",
 		tileUrls: ['http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png']
