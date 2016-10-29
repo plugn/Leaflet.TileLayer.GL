@@ -1,0 +1,19 @@
+{
+  "name": "leaflet.tilelayer.gl",
+  "version": "1.0.0",
+  "description": "Apply WebGL shaders to your LeafletJS tile layers",
+  "main": "src/Leaflet.TileLayer.GL.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/IvanSanchez/Leaflet.TileLayer.GL.git"
+  },
+  "keywords": [
+    "leaflet",
+    "webgl"
+  ],
+  "author": "Iván Sánchez Ortega <ivan@sanchezortega.es>",
+  "license": "Beerware"
+}

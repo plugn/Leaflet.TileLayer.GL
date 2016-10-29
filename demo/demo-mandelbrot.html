@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang='en'>
+<meta charset="utf-8">
+<head>
+	<title>Leaflet MandelbrotGL demo</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<script src="../src/Leaflet.GridLayer.GL.js"></script>
+</head>
+<body>
+
+	<h1>Leaflet.GridLayer.GL demo</h1>
+
+	<div id="map" style='width:100%; max-height:100%; height:600px;'></div>
+	
+	<div>X:<span id="x"></div>
+	<div>Y:<span id="y"></div>
+	<div>Zoom: <span id="zoom"></div>
+	
+	<script type="text/javascript">
+
+	var vertexShader = `
+attribute highp vec2 aCRSCoords;
+attribute vec2 aTextureCoords;
+varying vec2 vCRSCoords;
+void main(void) {
+	gl_Position = vec4((aTextureCoords - 0.5) * 2.0 , 1.0, 1.0);
+	vCRSCoords = aCRSCoords;
+}
+`;
+	
+	var fragmentShader = `
+precision highp float;
+
+varying highp vec2 vCRSCoords;
+
+int fractal(void) {
+	float cx = vCRSCoords.x;
+	float cy = vCRSCoords.y;
+
+	float x = 0.0;
+	float y = 0.0;
+	float tempX = 0.0;
+	int i = 0;
+	int runaway = 0;
+	for (int i=1; i < 200; i++) {
+		tempX = x * x - y * y + float(cx);
+		y = 2.0 * x * y + float(cy);
+		x = tempX;
+		if (runaway == 0 && x * x + y * y > 100.0) {
+			runaway = i;
+			break;
+		}
+	}
+
+	return runaway;
+}
+
+void main(void) {
+	int steps = 0;
+	float blue;
+	float yellow;
+	
+	steps = fractal();
+
+	if (steps != 0) {
+		blue = float(steps) / 100.0;
+		yellow = blue / 2.0;
+
+		gl_FragColor = vec4(yellow, yellow, blue, 1.0);
+
+	} else {
+		gl_FragColor = vec4(0.0, 0.0, 0.0, 1.0);
+	}
+}
+`;
+
+
+// var stupidVertexShader = `
+// attribute vec2 aTextureCoords;
+// void main(void) {
+// 	gl_Position = vec4((aTextureCoords - 0.5) * 2.0 , 1.0, 1.0);
+// }
+// `
+// 
+// var stupidFragmentShader = `
+// void main(void) {
+// 	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+// }
+// `
+
+
+		var tileSize = 256;
+
+		var map = L.map('map',{
+			crs: L.CRS.Simple,
+			minZoom: -5,
+			maxZoom: 22
+		}).setView([0, -0.5], 5);
+
+		var fractal = L.tileLayer.gl({
+// 			vertexShader: stupidVertexShader,
+// 			fragmentShader: stupidFragmentShader,
+			vertexShader: vertexShader,
+			fragmentShader: fragmentShader,
+			// tileUrls: []
+		}).addTo(map);
+
+
+		function logEvent(e) { console.log(e.type); }
+
+		map.on('mousemove', function(ev){
+			document.getElementById('x').innerHTML = ev.latlng.lng;
+			document.getElementById('y').innerHTML = ev.latlng.lat;
+		});
+
+		map.on('zoomend', function(ev){
+			document.getElementById('zoom').innerHTML = map.getZoom();
+		});
+
+	</script>
+</body>
+</html>
