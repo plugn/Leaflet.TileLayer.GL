@@ -53,7 +53,7 @@ Include Leaflet and Leaflet.TileLayer.GL in your HTML:
 ```
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js"></script>
-<script src='https://unpkg.com/leaflet.TileLayer.gl@latest/src/Leaflet.TileLayer.GL'></script>
+<script src='https://unpkg.com/leaflet.tilelayer.gl@latest/src/Leaflet.TileLayer.GL'></script>
 ```
 
 Alternatively, fetch a local copy of Leaflet and Leaflet.TileLayer.GL with `npm install --save leaflet; npm install --save leaflet.tilelayer.gl` or `yarn add leaflet; yarn add leaflet.tilelayer.gl`
