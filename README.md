@@ -2,7 +2,7 @@
 
 A [LeafletJS](http://www.leafletjs.com) plugin to appy WebGL shaders to your tiles.
 
-With this plugin, you can apply colour transforms to your tiles, merge two or 
+With this plugin, you can apply colour transforms to your tiles, merge two or
 more tiles with a custom function, perform on-the-fly hillshading, or create synthetic
 tile layers based only on the map coordinates.
 
@@ -87,25 +87,25 @@ var antiTonerVertexShader = `
 	attribute vec2 aVertexCoords;
 	attribute vec2 aTextureCoords;
 	varying vec2 vTextureCoords;
-	
+
 	void main(void) {
 		gl_Position = vec4(aVertexCoords , 1.0, 1.0);	// Use the vertex coords as given
 		vTextureCoords = aTextureCoords;	// Pass the texture coords to the frag shader
 	}
 `
 
-var fragmentShader = `
+var antiTonerFragmentShader = `
 	precision highp float;
 	uniform sampler2D uTexture0;	// This contains a reference to the tile image loaded from the network
 	varying vec2 vTextureCoords;	// This is the interpolated texel coords for this fragment
-	
+
 	void main(void) {
 		// Classic texel look-up
 		vec4 texelColour = texture2D(uTexture0, vec2(vTextureCoords.s, vTextureCoords.t));
-		
+
 		// If uncommented, this would output the image "as is"
 		// gl_FragColor = texelColour;
-		
+
 		// Let's mix the colours a little bit, inverting the red and green channels.
 		gl_FragColor = vec4(1.0 - texelColour.rg, texelColour.b, 1.0);
 	}
@@ -116,9 +116,9 @@ var antitoner = L.tileLayer.gl({
 	// ... with the shaders we just wrote above...
 	vertexShader: antiTonerVertexShader,
 	fragmentShader: antiTonerFragmentShader,
-	 
+
 	// ...and loading tile images from Stamen Toner as "uTexture0".
-	// If this array contained more than one tile template string, 
+	// If this array contained more than one tile template string,
 	// there would be "uTexture1", "uTexture2" and so on.
 	tileUrls: ['http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png']
 }).addTo(map);

@@ -2,28 +2,28 @@
 <html lang='en'>
 <meta charset="utf-8">
 <head>
-	<title>Leaflet MandelbrotGL demo</title>
+	<title>Leaflet TileLayer.GL AntiToner demo</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<script src="../src/Leaflet.GridLayer.GL.js"></script>
+	<script src="../src/Leaflet.TileLayer.GL.js"></script>
 </head>
 <body>
 
-	<h1>Leaflet.GridLayer.GL demo</h1>
+	<h1>Leaflet.GridLayer.GL AntiToner demo</h1>
 
 	<div id="map" style='width:100%; max-height:100%; height:600px;'></div>
-	
+
 	<div>X:<span id="x"></div>
 	<div>Y:<span id="y"></div>
 	<div>Zoom: <span id="zoom"></div>
-	
+
 	<p>In this demo, a WebGL shader takes the <a href='http://maps.stamen.com/toner/'>black-and-white "toner" map style by Stamen</a> and performs a basic colour inversion to turn them yellow-and-blue instead.</p>
 
-	
+
 	<script type="text/javascript">
 
 var vertexShader = `
@@ -42,10 +42,10 @@ uniform sampler2D uTexture0;
 varying vec2 vTextureCoords;
 void main(void) {
 	vec4 texelColour = texture2D(uTexture0, vec2(vTextureCoords.s, vTextureCoords.t));
-	
+
 	// This would output the image "as is"
 	// gl_FragColor = texelColour;
-	
+
 	// Let's mix the colours a little bit
 	gl_FragColor = vec4(1.0 - texelColour.rg, texelColour.b, 1.0);
 }

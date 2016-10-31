@@ -1,4 +1,12 @@
 
+# 1.0.1
+
+* Switch to subclassing from `GridLayer` instead of `TileLayer` to properly
+  handle async draws and remove glitching.
+* Prettified filenames and updated refs in `package.json`.
+* Fixed CRS coords orientation *again* because GL coords systems are insane.
+* Linting.
+
 # 1.0.0
 
 * Initial release

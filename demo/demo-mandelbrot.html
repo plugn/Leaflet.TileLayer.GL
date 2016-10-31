@@ -9,32 +9,32 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<script src="../src/Leaflet.GridLayer.GL.js"></script>
+	<script src="../src/Leaflet.TileLayer.GL.js"></script>
 </head>
 <body>
 
-	<h1>Leaflet.GridLayer.GL demo</h1>
+	<h1>Leaflet.GridLayer.GL Mandelbrot demo</h1>
 
 	<div id="map" style='width:100%; max-height:100%; height:600px;'></div>
-	
+
 	<div>X:<span id="x"></div>
 	<div>Y:<span id="y"></div>
 	<div>Zoom: <span id="zoom"></div>
-	
+
 	<p>In this demo, a WebGL shader uses the map coordinates as the only input to display the mandelbrot set.</p>
-	
+
 	<script type="text/javascript">
 
 	var vertexShader = `
 attribute highp vec2 aCRSCoords;
-attribute vec2 aTextureCoords;
+attribute vec2 aVertexCoords;
 varying vec2 vCRSCoords;
 void main(void) {
-	gl_Position = vec4((aTextureCoords - 0.5) * 2.0 , 1.0, 1.0);
+	gl_Position = vec4(aVertexCoords , 1.0, 1.0);
 	vCRSCoords = aCRSCoords;
 }
 `;
-	
+
 	var fragmentShader = `
 precision highp float;
 
@@ -66,7 +66,7 @@ void main(void) {
 	int steps = 0;
 	float blue;
 	float yellow;
-	
+
 	steps = fractal();
 
 	if (steps != 0) {

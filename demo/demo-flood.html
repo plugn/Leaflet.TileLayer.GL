@@ -2,28 +2,28 @@
 <html lang='en'>
 <meta charset="utf-8">
 <head>
-	<title>Leaflet TieLayer.GL flood demo</title>
+	<title>Leaflet TileLayer.GL flood demo</title>
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet-src.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<script src="../src/Leaflet.GridLayer.GL.js"></script>
+	<script src="../src/Leaflet.TileLayer.GL.js"></script>
 </head>
 <body>
 
-	<h1>Leaflet.GridLayer.GL demo</h1>
+	<h1>Leaflet.GridLayer.GL Flood demo</h1>
 
 	<div id="map" style='width:100%; max-height:100%; height:600px;'></div>
-	
+
 	<div>X:<span id="x"></div>
 	<div>Y:<span id="y"></div>
 	<div>Zoom: <span id="zoom"></div>
-	
+
 	<p>In this demo, a WebGL shader uses the elevation provided in <a href='https://www.mapbox.com/blog/terrain-rgb/'>Mapbox's "Terrain-RGB" map tiles</a>  to colour areas depending on their elevation (below 0 meters, between 0 and 5 meters, between 5 and 10 meters, above 10 meters).</p>
 
-	
+
 	<script type="text/javascript">
 
 var vertexShader = `
@@ -42,11 +42,11 @@ uniform sampler2D uTexture0;
 varying vec2 vTextureCoords;
 void main(void) {
 	highp vec4 texelColour = texture2D(uTexture0, vec2(vTextureCoords.s, vTextureCoords.t));
-	
+
 	// Height is represented in TENTHS of a meter
 	highp float height = (
-		texelColour.r * 255.0 * 256.0 * 256.0 + 
-		texelColour.g * 255.0 * 256.0 + 
+		texelColour.r * 255.0 * 256.0 * 256.0 +
+		texelColour.g * 255.0 * 256.0 +
 		texelColour.b * 255.0 )
 	-100000.0;
 
