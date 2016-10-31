@@ -69,10 +69,10 @@ The `vertexShader` and `fragmentShader` options contain shader code, in strings.
 The vertex shader receives the following **attributes**:
 
 * `aCRSCoords`: a `vec2` containing the *map* coordinates for the vertices (with values like `LatLng`s).
-* `aVertexCoords`: a `vec2` containing the *viewport* coordinates for the vertices (with values from `-1.0` to `+1.0`). These make the two triangles span a whole tile.
+* `aVertexCoords`: a `vec2` containing the *viewport* coordinates for the vertices (with values from `-1.0` to `+1.0`). These make the two triangles span a whole tile. Make sure to use these as `gl_Position` in the vertex shader.
 * `aTextureCoords`: a `vec2` containing the *texture* coordinates for the vertices. Use this for fetching texels.
 
-The fragment shader receives the following **uniforms**:
+The shaders receive the following **uniforms**:
 
 * `uTexture0`: a `sampler2D` referring to the first loaded tile image. This exists only if the `tileUrls` option is not empty.
 * `uTexture1`..`uTexture7`: texture samplers for the 2nd through 8th image.
@@ -83,9 +83,14 @@ This is the code used in the "antitoner" demo, commented and explained:
 
 ```js
 // Create the vertex shader as a multi-line string. Note the "`" character, valid only in ES6 JavaScript.
+// Shaders can be defined elsewhere, or loaded from other files or from the network,
+// but they must be strings when used in a TileLayer.GL.
 var antiTonerVertexShader = `
+	// Define which attribs we want. In this case, aCRSCoords is not needed.
 	attribute vec2 aVertexCoords;
 	attribute vec2 aTextureCoords;
+
+	// We need a varying so the fragment shader can use the interpolated aTextureCoords
 	varying vec2 vTextureCoords;
 
 	void main(void) {
@@ -95,12 +100,13 @@ var antiTonerVertexShader = `
 `
 
 var antiTonerFragmentShader = `
+	// The fragment shader runs once per fragment (AKA "once per screen pixel")
 	precision highp float;
 	uniform sampler2D uTexture0;	// This contains a reference to the tile image loaded from the network
 	varying vec2 vTextureCoords;	// This is the interpolated texel coords for this fragment
 
 	void main(void) {
-		// Classic texel look-up
+		// Classic texel look-up (fetch the texture "pixel" color for this fragment)
 		vec4 texelColour = texture2D(uTexture0, vec2(vTextureCoords.s, vTextureCoords.t));
 
 		// If uncommented, this would output the image "as is"
@@ -123,6 +129,16 @@ var antitoner = L.tileLayer.gl({
 	tileUrls: ['http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png']
 }).addTo(map);
 ```
+
+## Cool things that should be doable, but nobody has yet shown interest in asking about, much less in implementing them
+
+* Updating the shaders
+* Reusing the same WebGL context for more than one `TileLayer.GL` (as the render
+  calls are sync)
+* Custom uniforms
+* Time uniform(s)
+* Some kind of animations (keep the loaded images in memory, implement a rendering
+  loop)
 
 ## Legalese
 

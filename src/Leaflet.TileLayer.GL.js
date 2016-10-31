@@ -102,8 +102,11 @@ L.TileLayer.GL = L.GridLayer.extend({
 // 		console.log('Tex position: ', this._aTexPosition);
 // 		console.log('CRS position: ', this._aCRSPosition);
 
-		// Create a data buffer with 16 elements - the (easting,northing) CRS coords
-		// and the (s,t) texture coords for each of the 4 vertices
+		// Create three data buffer with 8 elements each - the (easting,northing)
+		// CRS coords, the (s,t) texture coords and the viewport coords for each
+		// of the 4 vertices
+		// Data for the texel and viewport coords is totally static, and
+		// needs to be declared only once.
 		this._CRSBuffer = gl.createBuffer();
 		gl.bindBuffer(gl.ARRAY_BUFFER, this._CRSBuffer);
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(8), gl.STATIC_DRAW);
