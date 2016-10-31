@@ -27,6 +27,12 @@ This demo uses [MapBox's "Terrain-RGB" tiles](https://www.mapbox.com/blog/terrai
 
 [http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-flood.html](http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-flood.html)
 
+#### Hypsometric tint
+
+This demo uses [MapBox's "Terrain-RGB" tiles](https://www.mapbox.com/blog/terrain-rgb/) and applies a basic [hypsometric tint](https://en.wikipedia.org/wiki/Hypsometric_tints) colour ramp.
+
+[http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-hypsometric.html](http://ivansanchez.gitlab.io/Leaflet.TileLayer.GL/demo/demo-hypsometric.html)
+
 
 ## Why?
 

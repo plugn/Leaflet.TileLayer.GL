@@ -13,7 +13,7 @@
 </head>
 <body>
 
-	<h1>Leaflet.GridLayer.GL Flood demo</h1>
+	<h1>Leaflet.TileLayer.GL Flood demo</h1>
 
 	<div id="map" style='width:100%; max-height:100%; height:600px;'></div>
 
@@ -73,7 +73,9 @@ void main(void) {
 
 		var mapboxAccessToken = 'pk.eyJ1IjoibWF0dCIsImEiOiJTUHZkajU0In0.oB-OGTMFtpkga8vC48HjIg';
 
-		var base = L.tileLayer("https://{s}.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=" + mapboxAccessToken).addTo(map);
+		var base = L.tileLayer("https://{s}.tiles.mapbox.com/v4/mapbox.outdoors/{z}/{x}/{y}.png?access_token=" + mapboxAccessToken, {
+			attribution: 'Map data &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy;<a href="https://www.mapbox.com/map-feedback/">Mapbox</a>'
+		}).addTo(map);
 
 		var antitoner = L.tileLayer.gl({
 			vertexShader: vertexShader,
