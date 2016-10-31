@@ -68,7 +68,7 @@ You can create instances of `L.TileLayer.GL` in your code. These take three new 
 	}).addTo(map);
 ```
 
-Using this plugin requires some knowledge of WebGL and GLSL shaders. If you've never heard the terms "vertex shader" or "fragment shader", read [this WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL) to become acquinted, or [The Book Of Shaders](https://thebookofshaders.com/) to learn to do cool shaders.
+Using this plugin requires some knowledge of WebGL and GLSL shaders. If you've never heard the terms "vertex shader" or "fragment shader", read [this WebGL tutorial](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial/Getting_started_with_WebGL) to become acquinted, or [The Book Of Shaders](https://thebookofshaders.com/) to learn to do cool shaders, or [WebGL Fundamentals](http://webglfundamentals.org/webgl/lessons/webgl-image-processing.html) to see some WebGL image processing techniques.
 
 The `vertexShader` and `fragmentShader` options contain shader code, in strings. For every map tile, the shaders will run once, on two triangles. This plugin does not allow you to create more triangles.
 

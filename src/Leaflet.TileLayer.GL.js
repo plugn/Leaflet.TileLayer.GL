@@ -214,6 +214,7 @@ L.TileLayer.GL = L.GridLayer.extend({
 // 				console.log(textureImages);
 				var gl = this._gl;
 				for (var i=0; i<this.options.tileUrls.length && i<8; i++) {
+					gl.activeTexture(gl.TEXTURE0 + i);
 					gl.bindTexture(gl.TEXTURE_2D, this._textures[i]);
 					gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, textureImages[i]);
 					gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
